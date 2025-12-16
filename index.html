@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="description" content="Free online calculators like Age Calculator, EMI Calculator, CGPA Calculator, Currency Converter and more. Mobile friendly fast tools.">
+<meta name="keywords" content="Age Calculator, EMI Calculator, CGPA Calculator, Percentage Calculator, Currency Converter">
+<meta name="author" content="Thiya stephen">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Tools</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f8;
+    }
+    /* Button Hover Effect */
+button:hover {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+    
+    header {
+      background: #1e88e5;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .container {
+      padding: 15px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      font-size: 16px;
+    }
+    button {
+      background: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<!-- Language Selector -->
+<section style="padding:15px;">
+  <label id="langLabel">Choose Language</label>
+  <select id="language">
+    <option value="en">English</option>
+    <option value="ta">தமிழ்</option>
+    <option value="hi">हिंदी</option>
+  </select>
+</section>
+
+<header>
+  <h1> Daily Tools</h1>
+  <p>All Calculators in one place </p>
+</header>
+
+<div class="container">
+<div class="card">
+<h2 id="cgpaTitle">Universal CGPA Calculator</h2>
+  
+
+  <input type="number" id="iMarks" placeholder="Internal Marks Scored">
+  <input type="number" id="iMax" placeholder="Internal Max Marks">
+
+  <input type="number" id="sMarks" placeholder="Semester Marks Scored">
+  <input type="number" id="sMax" placeholder="Semester Max Marks">
+
+<button id="cgpaBtn" onclick="calculateUniversalCGPA()">Calculate</button>
+  <div class="result" id="uResult"></div>
+</div> 
+
+
+<!-- EMI CALCULATOR -->
+<div class="card">
+<h2 id="emiTitle">EMI Calculator</h2>
+  
+
+  <input type="number" id="loanAmount" placeholder="Loan Amount ()">
+  <input type="number" id="interestRate" placeholder="Interest Rate (% per year)">
+  <input type="number" id="loanMonths" placeholder="Loan Duration (Months)">
+<button id="emiBtn" onclick="calculateEMI()">Calculate</button>
+  
+
+  <div class="result" id="emiResult"></div>
+  <div class="result" id="totalResult"></div>
+</div>
+
+  <!-- AGE CALCULATOR -->
+  <div class="card">
+  <h2 id="ageTitle">Age Calculator</h2>
+    
+    <input type="date" id="dob">
+    <button id="ageBtn" onclick="calculateAge()">Calculate</button>
+    
+    <div class="result" id="ageResult"></div>
+  </div>
+
+  <!-- PERCENTAGE CALCULATOR -->
+  <div class="card">
+  <h2 id="percentTitle">Percentage Calculator</h2>
+    
+    <input type="number" id="total" placeholder="Total">
+    <input type="number" id="part" placeholder="Obtained">
+    <button id="percentBtn" onclick="calculatePercentage()">Calculate</button>
+    
+    <div class="result" id="perResult"></div>
+  </div>
+  <!-- TIME ZONE TOOL -->
+  <div class="card">
+  <h2 id="timeTitle">Time Zone Tool</h2>
+    
+    
+      
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Time Zones</title>
+</head>
+
+<h2>Current Time in Different Countries</h2>
+<button id="timeBtn">Get Times</button>
+<div id="result"></div>
+
+<script>
+    document.getElementById("timeBtn").addEventListener("click", function() {
+        const now = new Date();
+
+        // Countries and their time zones
+        const zones = {
+            "India (IST)": 'Asia/Kolkata',
+            "USA (ET)": 'America/New_York',
+            "UK (GMT)": 'Europe/London',
+            "Japan (JST)": 'Asia/Tokyo',
+            "UAE (GST)": 'Asia/Dubai'
+        };
+
+        let output = "";
+        for (let [country, tz] of Object.entries(zones)) {
+            let options = { timeZone: tz, hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            let time = now.toLocaleTimeString('en-US', options);
+            output += `<p>${country}: ${time}</p>`;
+        }
+
+        document.getElementById("result").innerHTML = output;
+    });
+</script>
+
+</html>
+
+</div>
+
+<script>
+  function calculateAge() {
+    let dob = document.getElementById("dob").value;
+    if (!dob) {
+      document.getElementById("ageResult").innerText = "Please select date";
+      return;
+    }
+    let birthDate = new Date(dob);
+    let today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    document.getElementById("ageResult").innerText = "Your Age: " + age + " years";
+  }
+
+  function calculatePercentage() {
+    let total = document.getElementById("total").value;
+    let part = document.getElementById("part").value;
+    if (total === "" || part === "") {
+      document.getElementById("perResult").innerText = "Enter values";
+      return;
+    }
+    let percent = (part / total) * 100;
+    document.getElementById("perResult").innerText =
+      "Percentage: " + percent.toFixed(2) + "%";
+  }
+</script>
+<!-- Currency Converter -->
+<section style="padding:20px;">
+<h2 id="currencyTitle">Currency Converter</h2>
+
+
+  <input type="number" id="amount" placeholder="Enter amount"
+         style="width:100%; padding:10px; margin-bottom:10px;">
+
+  <select id="fromCurrency" style="width:100%; padding:10px; margin-bottom:10px;">
+    <option value="INR">INR - Indian Rupee</option>
+    <option value="USD">USD - US Dollar</option>
+    <option value="EUR">EUR - Euro</option>
+    <option value="GBP">GBP - British Pound</option>
+  </select>
+
+  <select id="toCurrency" style="width:100%; padding:10px; margin-bottom:10px;">
+    <option value="USD">USD - US Dollar</option>
+    <option value="INR">INR - Indian Rupee</option>
+    <option value="EUR">EUR - Euro</option>
+    <option value="GBP">GBP - British Pound</option>
+  </select>
+<button id="currencyBtn" onclick="convertCurrency()"
+ 
+       style="width:100%; padding:12px; background:#1e88e5; color:#fff; border:none;">
+    Convert
+  </button>
+
+  <p id="currencyResult" style="margin-top:15px; font-weight:bold;"></p>
+</section>
+<footer style="text-align:center; padding:15px; background:#f2f2f2;">
+  <p>2025 Daily Tools</p>
+  <p>Created by  Thiya stephen  </p>
+  <p>Mobile friendly  Fast  Free</p>
+</footer>
+<script>
+  function convertCurrency() {
+    const amount = document.getElementById("amount").value;
+    const from = document.getElementById("fromCurrency").value;
+    const to = document.getElementById("toCurrency").value;
+    const result = document.getElementById("currencyResult");
+
+    if (amount === "" || amount <= 0) {
+      result.innerHTML = "⚠️ Please enter a valid amount";
+      return;
+    }
+
+    // Static exchange rates (base: INR)
+    const rates = {
+      INR: 1,
+      USD: 0.012,
+      EUR: 0.011,
+      GBP: 0.0095
+    };
+
+    const converted =
+      (amount / rates[from]) * rates[to];
+
+    result.innerHTML =
+      amount + " " + from + " = " +
+      converted.toFixed(2) + " " + to;
+  }
+  function showTime() {
+  let zone = document.getElementById("country").value;
+
+  let time = new Date().toLocaleString("en-US", {
+    timeZone: zone,
+    dateStyle: "medium",
+    timeStyle: "medium"
+  });
+
+  document.getElementById("timeResult").innerText =
+    "Current Time: " + time;
+}
+</script>
+<!-- Currency Converter END -->
+<script>
+function calculateEMI() {
+  let amount = document.getElementById("loanAmount").value;
+  let rate = document.getElementById("interestRate").value;
+  let months = document.getElementById("loanMonths").value;
+
+  if (amount === "" || rate === "" || months === "") {
+    document.getElementById("emiResult").innerText = "Please fill all fields";
+    document.getElementById("totalResult").innerText = "";
+    return;
+  }
+
+  let monthlyRate = rate / 12 / 100;
+
+  let emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+            (Math.pow(1 + monthlyRate, months) - 1);
+
+  let totalReturn = emi * months;
+
+  document.getElementById("emiResult").innerText =
+    "Monthly EMI: " + emi.toFixed(2);
+
+  document.getElementById("totalResult").innerText =
+    "Total Return Amount: " + totalReturn.toFixed(2);
+}
+</script> 
+<script >
+function calculateUniversalCGPA() {
+  let iMarks = Number(document.getElementById("iMarks").value);
+  let iMax = Number(document.getElementById("iMax").value);
+  let sMarks = Number(document.getElementById("sMarks").value);
+  let sMax = Number(document.getElementById("sMax").value);
+
+  if (iMax === 0 || sMax === 0) {
+    document.getElementById("uResult").innerText =
+      "Max marks cannot be zero";
+    return;
+  }
+
+  let internalPercent = (iMarks / iMax) * 100;
+  let semPercent = (sMarks / sMax) * 100;
+
+  let totalPercent = (internalPercent + semPercent) / 2;
+
+  let gradePoint;
+  if (totalPercent >= 90) gradePoint = 10;
+  else if (totalPercent >= 80) gradePoint = 9;
+  else if (totalPercent >= 70) gradePoint = 8;
+  else if (totalPercent >= 60) gradePoint = 7;
+  else if (totalPercent >= 50) gradePoint = 6;
+  else gradePoint = 0;
+
+  document.getElementById("uResult").innerText =
+    "Total Percentage: " + totalPercent.toFixed(2) +
+    "% | Grade Point: " + gradePoint;
+}
+</script >
+<script>
+const translations = {
+  en: {
+    langLabel: "Choose Language",
+
+    cgpaTitle: "Universal CGPA Calculator",
+    emiTitle: "EMI Calculator",
+    ageTitle: "Age Calculator",
+    percentTitle: "Percentage Calculator",
+    timeTitle: "Time Zone Tool",
+    currencyTitle: "Currency Converter",
+
+    cgpaBtn: "Calculate",
+    emiBtn: "Calculate",
+    ageBtn: "Calculate",
+    percentBtn: "Calculate",
+    timeBtn: "Convert",
+    currencyBtn: "Convert"
+  },
+
+  ta: {
+    langLabel: "மொழியைத் தேர்ந்தெடுக்கவும்",
+
+    cgpaTitle: "பொது CGPA கணக்கீடு",
+    emiTitle: "EMI கணக்கீடு",
+    ageTitle: "வயது கணக்கீடு",
+    percentTitle: "வீதம் கணக்கீடு",
+    timeTitle: "நேர மண்டலம் கருவி",
+    currencyTitle: "நாணய மாற்றி",
+
+    cgpaBtn: "கணக்கிடு",
+    emiBtn: "கணக்கிடு",
+    ageBtn: "கணக்கிடு",
+    percentBtn: "கணக்கிடு",
+    timeBtn: "மாற்று",
+    currencyBtn: "மாற்று"
+  },
+
+  hi: {
+    langLabel: "भाषा चुनें",
+
+    cgpaTitle: "यूनिवर्सल CGPA कैलकुलेटर",
+    emiTitle: "EMI कैलकुलेटर",
+    ageTitle: "आयु कैलकुलेटर",
+    percentTitle: "प्रतिशत कैलकुलेटर",
+    timeTitle: "टाइम ज़ोन टूल",
+    currencyTitle: "मुद्रा परिवर्तक",
+
+    cgpaBtn: "गणना करें",
+    emiBtn: "गणना करें",
+    ageBtn: "गणना करें",
+    percentBtn: "गणना करें",
+    timeBtn: "बदलें",
+    currencyBtn: "बदलें"
+  }
+};
+
+document.getElementById("language").addEventListener("change", function () {
+  const lang = this.value;
+  for (let key in translations[lang]) {
+    const el = document.getElementById(key);
+    if (el) el.innerText = translations[lang][key];
+  }
+});
+</script> 
+
+</section>
+
+<section style="padding:20px;">
+  <h2>About Daily Tools</h2>
+  <p>
+    Daily Tools is a free website created to solve common daily life
+    calculations like age, percentage and more.
+    Built using HTML, CSS and JavaScript.
+  </p>
+</section>
+<p>No data is stored. 100% safe to use.</p>
+
+<footer>...</footer>
+</body>
+</html>
