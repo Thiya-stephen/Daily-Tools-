@@ -15,6 +15,18 @@
       padding: 0;
       background: #f4f6f8;
     }
+    .menu{
+  display:flex;
+  gap:15px;
+  background:#1e88e5;
+  padding:10px;
+}
+
+.menu a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
     /* Button Hover Effect */
 button:hover {
   opacity: 0.9;
@@ -58,7 +70,14 @@ button:hover {
     }
   </style>
 </head>
+
 <body>
+<nav class="menu">
+  <a href="#home">Home</a>
+  <a href="#tools">Tools</a>
+  <a href="#about">About</a>
+</nav>
+
 <!-- Language Selector -->
 <section style="padding:15px;">
   <label id="langLabel">Choose Language</label>
@@ -69,12 +88,12 @@ button:hover {
   </select>
 </section>
 
-<header>
+<header id="home">
   <h1> Daily Tools</h1>
   <p>All Calculators in one place </p>
 </header>
 
-<div class="container">
+<div class="container" id="tools">
 <div class="card">
 <h2 id="cgpaTitle">Universal CGPA Calculator</h2>
   
@@ -400,7 +419,7 @@ document.getElementById("language").addEventListener("change", function () {
 
 </section>
 
-<section style="padding:20px;">
+<section id="about" style="padding:20px;">
   <h2>About Daily Tools</h2>
   <p>
     Daily Tools is a free website created to solve common daily life
@@ -408,6 +427,7 @@ document.getElementById("language").addEventListener("change", function () {
     Built using HTML, CSS and JavaScript.
   </p>
 </section>
+
 <p>No data is stored. 100% safe to use.</p>
 
 <footer>...</footer>
